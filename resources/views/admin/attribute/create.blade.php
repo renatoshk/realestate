@@ -33,8 +33,8 @@
 <div class="form-group">
     <br>
     {!!Form::label('type', ' Type: ')!!}
-     {!!Form::text('type', null, ['class'=>'form-control'])!!}
-    
+    {{-- select --}}
+    {!!Form::select('type', ['text' => 'Text', 'select' => 'Select', 'checkbox' => 'Checkbox'], null, ['class'=>'form-control'])!!}
 </div>
 <div class="form-group">
     <br>
@@ -43,7 +43,7 @@
 </div>
 <div class="form-group">
     <br>
-    {!!Form::label('attr_code', 'Value : ')!!}
+    {!!Form::label('attr_code', 'Attribute Code: ')!!}
      {!!Form::text('attr_code', null, ['class'=>'form-control'])!!}
 </div>
 <div class="form-group">

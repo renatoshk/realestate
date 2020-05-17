@@ -48,7 +48,7 @@
                       {!!Form::label('property_description', 'Property Description:')!!}
                       {!!Form::textarea('property_description',null, ['class'=>'form-control'])!!}
                  </div>
-                  <div class="form-group">
+                  <div class="form-group" id="prop-files-uploader">
                    <input type="file" id="files" name="photos[]" multiple accept="image/*" class="form-control"><br/>
                    <div id="selectedFiles"></div>
                  </div>

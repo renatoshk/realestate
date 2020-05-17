@@ -15,7 +15,7 @@ class AjaxController extends Controller {
        	$html = '';
        	// $attr->type;
        	foreach ($attributes as $attr) {
-       		$html .= '<div id="prop_'.$attr->attr_code.'"> <div class="form-group"><label for="'.$attr->label.'">'.$attr->label.'</label><input class="form-control" name="'.$attr->attr_code.'" type="'.$attr->type.'" id="'.$attr->attr_code.'"></div></div>';
+       		$html .= '<div class="prop_attr"> <div class="form-group"><label for="'.$attr->label.'">'.$attr->label.'</label><input class="form-control" name="'.$attr->attr_code.'" type="'.$attr->type.'" id="'.$attr->attr_code.'"></div></div>';
        	}
 		$response = array(
 			'status' => 'success',
