@@ -15,7 +15,7 @@ class Propertyattributes extends Model
         public function attribute_group(){
         	return $this->belongsTo('App\Attributes_group', 'attribute_group_id');
         }
-        public function attributes(){
+        public function attribute(){
         	return $this->belongsTo('App\Attributes', 'attribute_id');
         }
 

@@ -4,7 +4,7 @@
 
          <!-- bradcam_area  -->
         <div class="property_details_banner">
-                <div class="container">
+                <div class="container"> 
                         <div class="row">
                             <div class="col-xl-6 col-md-8 col-lg-6">
                                 <div class="comfortable_apartment">

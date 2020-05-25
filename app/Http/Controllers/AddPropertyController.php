@@ -49,25 +49,26 @@ class AddPropertyController extends Controller
     public function store(AddRequest $request)
     {
         //
-        $user = Auth::user(); 
-        dd($request['property_type']); 
+        $user = Auth::user();
+          dd($request->all());
+        foreach ($request['attribute_name_id'] as $value) {
+            
+         dd($value);
+        }
+         dd($request->attribute_name);
         if($request->hasFile('photos')){
            $files = $request->file('photos');
          foreach($files as $file){
                  $filename = time(). $file->getClientOriginalName();
                  $file->move('photos', $filename);
                  $property = $user->properties()->create($request->all());
-
-
          foreach ($request->photos as $photo){
                   Property_images::create([
                           'property_id' => $property->id,
                           'image' => $filename
-                 ]);
-            }
-
-          
-
+                 ]); 
+            }  
+             
         }
         return redirect()->back();
       }
@@ -95,7 +96,7 @@ class AddPropertyController extends Controller
      */
     public function edit($id)
     {
-        //
+        // 
     }
 
     /**
