@@ -20,14 +20,11 @@ class AddPropertyController extends Controller
     {
         //
         $user = Auth::user();
-        $attributes_set = Attributes_group::pluck('name', 'id')->all();
+        $properties = Property::where('user_id', $user->id)->get();
         if($user){
-          return view('new', compact('attributes_set'));
+          return view('show', compact('properties'));
         }
-         else {
-            Session::flash('flash_message', 'You need to register/login to add Property');
-            return redirect('/register'); 
-         } 
+        
     }
 
     /**
@@ -37,7 +34,16 @@ class AddPropertyController extends Controller
      */
     public function create()
     {
-        // 
+        //
+        $user = Auth::user();
+        $attributes_set = Attributes_group::pluck('name', 'id')->all();
+        if($user){
+             return view('new', compact('attributes_set'));
+        }
+         else {
+              Session::flash('flash_message', 'You need to register/login to add Property');
+              return redirect('/register'); 
+         } 
     } 
 
     /**
@@ -50,28 +56,21 @@ class AddPropertyController extends Controller
     {
         //
         $user = Auth::user();
-          dd($request->all());
-        foreach ($request['attribute_name_id'] as $value) {
-            
-         dd($value);
-        }
-         dd($request->attribute_name);
+       
         if($request->hasFile('photos')){
            $files = $request->file('photos');
+          $property = $user->properties()->create($request->all());
          foreach($files as $file){
                  $filename = time(). $file->getClientOriginalName();
                  $file->move('photos', $filename);
-                 $property = $user->properties()->create($request->all());
-         foreach ($request->photos as $photo){
                   Property_images::create([
                           'property_id' => $property->id,
                           'image' => $filename
-                 ]); 
-            }  
-             
+                 ]);  
         }
-        return redirect()->back();
       }
+        Session::flash('flash_message', 'Your Property has been created!');
+        return redirect()->back();
    }
    
 

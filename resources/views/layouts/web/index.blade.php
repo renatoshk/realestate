@@ -117,7 +117,7 @@
                             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
-                                        <a  href="{{route('add.index')}}">Add Property</a>
+                                        <a  href="{{route('add.create')}}">Add Property</a>
                                     </div>
                                 </div> 
                             </div>
