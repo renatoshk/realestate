@@ -16,7 +16,7 @@ class Attributes_group extends Model
          return $this->hasMany('App\Attributes');
     }
     public function property(){
-    	return $this->belongsTo('App\Property');
+    	return $this->hasMany('App\Property');
     }
     
 }

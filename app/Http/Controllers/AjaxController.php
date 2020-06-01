@@ -13,9 +13,9 @@ class AjaxController extends Controller {
        	$attributes =  Attributes::where('attribute_id', $attrId)->get();
 
        	$html = '';
-       	// $attr->type;
+       	// $attr->type; 
        	foreach ($attributes as $attr) {
-       		$html .= '<div class="prop_attr"> <div class="form-group"><input type="hidden" name="id_'.$attr->attr_code.'" value="'.$attr->id.'"><label for="'.$attr->label.'">'.$attr->label.'</label><input class="form-control" name="'.$attr->attr_code.'" type="'.$attr->type.'" id="'.$attr->attr_code.'"></div></div>';
+       		$html .= '<div class="prop_attr"> <div class="form-group"><input type="hidden" name="id_'.$attr->attr_code.'" value="'.$attr->id.'"><label for="'.$attr->label.'">'.$attr->label.'</label><input class="form-control"  name="'.$attr->attr_code.'" type="'.$attr->type.'" id="'.$attr->attr_code.'"></div></div>';
        	}
 		$response = array(
 			'status' => 'success',

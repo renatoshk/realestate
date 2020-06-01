@@ -50,18 +50,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                @if($properties)
-                 @foreach($properties as $property)
+                @if($data)
+                 @foreach($data as $prop)
               <tr>
-                  <td>{{$property->property_name}}</td>
-                  <td>{{$property->property_description}}</td>
-                  <td>{{$property->status}}</td>
+                  <td>{{$prop['property_name']}}</td>
+                  <td>{{$prop['property_description']}}</td>
+                  <td>{{$prop['status']}}</td>
+                  <td>{{$prop['type']}}</td>
                   <td></td>
-                  <td></td>
-                  <td><a href="{{route('add.edit', $property->id)}}">Edit</a></td>
+                  <td><a href="{{route('add.edit', $prop['id'])}}">Edit</a></td>
                   <td>
                   
-                {!!Form::open(['method'=>'DELETE', 'action'=>['AddPropertyController@destroy', $property->id]])!!}
+                {!!Form::open(['method'=>'DELETE', 'action'=>['AddPropertyController@destroy', $prop['id']]])!!}
                      {!!Form::submit('Delete', ['class'=>'btn btn-danger'])!!} 
                 {!!Form::close()!!}
                 </td>

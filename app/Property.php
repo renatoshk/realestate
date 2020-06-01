@@ -21,8 +21,8 @@ class Property extends Model
         return $this->hasMany('App\Attributes');     
      }
 
-     public function attribute_groups(){
-        return $this->hasMany('App\Attributes_group');     
+     public function attribute_group(){
+        return $this->belongsTo('App\Attributes_group');     
      }
 
      public function photos(){
