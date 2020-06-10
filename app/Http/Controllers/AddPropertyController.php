@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -11,6 +10,7 @@ use App\Propertyattributes;
 use App\Attributes;
 use App\Property;
 use App\Http\Requests\AddRequest;
+use App\Http\Requests\EditPropertyRequest;
 class AddPropertyController extends Controller
 {
     /**
@@ -22,25 +22,26 @@ class AddPropertyController extends Controller
     {
         //
         $user = Auth::user();
+        if($user){
         $properties = Property::where('user_id', $user->id)->get();
         $row = [];
-        $data = [];
-
+        $data = []; 
         foreach ($properties as $property) {
             $attrs = $property->property_attributes;
             $groupName = Attributes_group::where('id', $attrs[0]['attribute_group_id'])->get();
-
+            // $attr_names = Attributes::where('attribute_id', $groupName[0]['id'])->get();
             $row['id'] = $property->id;
             $row['property_name'] = $property->property_name;
             $row['property_description'] = $property->property_description;
             $row['status'] = $property->status;
             $row['type'] = $groupName[0]['name'];
-
-            $data[] = $row;
+            $row['price'] = $property->price;
+            $row['location'] = $property->location;
+            $data[] = $row; 
             $row = [];
-        }
-
-        if($user){
+        }  
+            //shfaqja e attributeve perkatese ne frontend 
+            // $prop_attr = Propertyattributes::where
             return view('show', compact('data'));
         }
         
@@ -76,13 +77,16 @@ class AddPropertyController extends Controller
         //
         $user = Auth::user();
         $data = $request->all();
+       if($user){ 
 
         // insert into properties table
         $property = $user->properties()->create([
             'status' => $data['status'],
             'property_type' => $data['property_type'],
             'property_name' => $data['property_name'],
-            'property_description' => $data['property_description']
+            'property_description' => $data['property_description'],
+            'price' => $data['price'],
+            'location' => $data['location']
         ]);
 
         // save image data
@@ -104,7 +108,9 @@ class AddPropertyController extends Controller
         unset($data['property_name']);
         unset($data['property_description']);
         unset($data['photos']);
-
+        unset($data['price']);
+        unset($data['location']);
+ 
         $i = 0; $attrId;
         foreach ($data as $key => $value) {
             if ($i % 2 == 0) {
@@ -117,11 +123,12 @@ class AddPropertyController extends Controller
                     'attribute_value'       =>  $value
                 ]);
             }
-            $i++;
+            $i++; 
         }
 
         Session::flash('flash_message', 'Your Property has been created!');
         return redirect()->back();
+     }
    }
    
 
@@ -136,6 +143,7 @@ class AddPropertyController extends Controller
     {
         //
 
+
     }
 
     /**
@@ -147,8 +155,15 @@ class AddPropertyController extends Controller
     public function edit($id)
     {
         // 
+        $property = Property::findOrFail($id);
+        $attrs_prop = $property->property_attributes;
+        $attributes_set = Attributes_group::where('id', $attrs_prop[0]['attribute_group_id'])->first()->name;
+        $attrs = Attributes::where('attribute_id',$attrs_prop[0]['attribute_group_id'])->get();
+       
+        $photos = $property->photos;
+        return view('editproperty', compact('property', 'attributes_set', 'attrs', 'photos'));
     }
-
+ 
     /**
      * Update the specified resource in storage.
      *
@@ -156,9 +171,52 @@ class AddPropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditPropertyRequest $request, $id)
     {
         //
+        $user = Auth::user();
+        $data = $request->all();
+        if($user){
+
+            //edit photo
+             if($request->hasFile('photos')){
+                $files = $request->file('photos');
+                foreach ($files as $file){
+                    $filename = time().$file->getClientOriginalName();
+                    $file->move('photos', $filename);
+                    Property_images::where('property_id', $id)->update([
+                        'image'=>$filename
+                    ]);
+                }
+             }   
+            //edit into properties table
+        $property = $user->properties()->whereId($id)->first()->update($data);
+        unset($data['_token']);
+        unset($data['status']);
+        unset($data['property_name']);
+        unset($data['property_description']);
+        unset($data['photos']);
+        unset($data['files']);
+        unset($data['_method']);
+        unset($data['price']);
+        unset($data['location']);
+
+         $i = 0; $attrId;
+        foreach ($data as $key=>$value) {
+             if ($i % 2 == 0) {
+                $attrId = $value;
+            }else{
+                Propertyattributes::where('property_id', $id)->where('attribute_id', $attrId)->update([
+                    'attribute_value'   =>  $value
+                ]);
+            }
+             $i++;
+        }
+
+        Session::flash('flash_message', 'Your Property has been updated!');
+        return redirect()->back();
+        }
+
     }
 
     /**
@@ -170,8 +228,13 @@ class AddPropertyController extends Controller
     public function destroy($id)
     {
         //
+        $prop = Property::findOrFail($id);
+        foreach ($prop->photos as $photo) {
+         
+        unlink(public_path() . '/photos/' . $photo->image);
+        }
+        $prop->delete();
+        Session::flash('flash_message', 'The Property has been deleted!');
+        return redirect()->back();
     }
-
-
-
-}
+} 

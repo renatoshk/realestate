@@ -15,11 +15,13 @@ class CreatePropertyattributesTable extends Migration
     {
         Schema::create('propertyattributes', function (Blueprint $table) {
             $table->id();
-            $table->integer('property_id');
+            $table->unsignedBigInteger('property_id');
             $table->integer('attribute_group_id');
             $table->integer('attribute_id');
             $table->string('attribute_value');
             $table->timestamps();
+            $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
+            // $table->foreignId('property_id')->constrained()->onDelete('cascade');
         });
     }
 

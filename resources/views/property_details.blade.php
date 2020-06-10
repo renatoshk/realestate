@@ -8,28 +8,27 @@
                         <div class="row">
                             <div class="col-xl-6 col-md-8 col-lg-6">
                                 <div class="comfortable_apartment">
-                                    <h4>Comfortable Apartment in Palace</h4>
-                                    <p> <img src="img/svg_icon/location.svg" alt=""> 200/A, Greenland, Texaro, USA</p>
+                                    <h4>Comfortable {{$attr_set[0]['name']}} in {{$property->location}}
+                                       for {{$property->status}}</h4>
+                                    <p> <img src="/photos/{{$photos[0]['image']}}" width="400px" height="400px" alt="">{{$property->location}}
+                                    </p>
                                     <div class="quality_quantity d-flex">
+                                        @if($attrs)
+                                          @foreach($attrs as $attr)
                                         <div class="single_quantity">
                                             <img src="img/svg_icon/color_box.svg" alt="">
-                                            <span>1200 Sqft</span>
+                                            <span>{{$attr->label}} {{App\Propertyattributes::where('property_id', $property->id)->where('attribute_id',$attr->id)->first()->attribute_value}}</span>
                                         </div>
-                                        <div class="single_quantity">
-                                            <img src="img/svg_icon/color_bed.svg" alt="">
-                                            <span>2 Bed</span>
-                                        </div>
-                                        <div class="single_quantity">
-                                            <img src="img/svg_icon/color_bath.svg" alt="">
-                                            <span>2 Bath</span>
-                                        </div>
+                                          @endforeach
+                                         @endif   
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-md-4 col-lg-6">
                                 <div class="prise_quantity">
-                                    <h4>$4567</h4>
-                                    <a href="#">+10 367 457 735</a>
+                                    <h4>${{$property->price}}</h4>
+                                    <a href="#">+3559812168</a>
                                 </div>
                             </div>
                         </div>
@@ -44,25 +43,20 @@
                 <div class="col-xl-12">
                     <div class="property_banner">
                         <div class="property_banner_active owl-carousel">
+                 @if($photos)
+                    @foreach($photos as $photo)
                             <div class="single_property">
-                                <img src="img/banner/property_details.png" alt="">
+                                <img src="/photos/{{$photo->image}}" alt="">
                             </div>
-                            <div class="single_property">
-                                <img src="img/banner/property_details.png" alt="">
-                            </div>
-                            <div class="single_property">
-                                <img src="img/banner/property_details.png" alt="">
-                            </div>
+                    @endforeach
+                @endif
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
                     <div class="details_info">
                         <h4>Description</h4>
-                       <p>While there are countless Trips out there in charity shops and car boot sales, you can also buy refurbished examples, with replacement leatherette available in all colors. I love my Trip and use it regularly something so refreshing about its simplicity.</p>
-                       <p>While there are countless Trips out there in charity shops and car boot sales, you can also buy refurbished examples, with replacement leatherette available in all colors. I love my Trip and use it regularly something so refreshing about its simplicity.</p>
-                       <p>While there are countless Trips out there in charity shops and car boot sales, you can also buy refurbished examples, with replacement leatherette available in all colors. I love my Trip and use it regularly something so refreshing about its simplicity.</p>
-
+                       <p>{{$property->property_description}}</p>
                     </div>
                     <section class="contact-section">
                             <div class="d-none d-sm-block">
@@ -147,13 +141,13 @@
                 </div>
                 <div class="col-xl-5">
                     <div class="call_add_action">
-                        <span>+10 637 367 4567</span>
-                        <a href="#" class="boxed-btn3-line">Add Property</a>
+                        <span>+3559812168</span>
+                        <a href="{{route('add.create')}}" class="boxed-btn3-line">Add Property</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
     <!-- /contact_action_area  -->
 
 

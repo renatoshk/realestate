@@ -22,7 +22,6 @@
        </div>
     @endif
     <br>
-
     <!-- Main content -->
     <section class="content" id="content">
       <div class="container-fluid">
@@ -55,6 +54,15 @@
                       {!!Form::label('property_description', 'Property Description:')!!}
                       {!!Form::textarea('property_description',null, ['class'=>'form-control'])!!}
                  </div>
+                   <div class="form-group">
+                      {!!Form::label('price', 'Property Price:')!!}
+                      {!!Form::text('price',null, ['class'=>'form-control'])!!}
+                  </div>
+                   <div class="form-group">
+                      {!!Form::label('location', 'Property Location:')!!}
+                      {!!Form::text('location',null, ['class'=>'form-control'])!!}
+                  </div>  
+
                   <div class="form-group" id="prop-files-uploader">
                    <input type="file" id="files" name="photos[]" multiple accept="image/*" class="form-control"><br/>
                    <div id="selectedFiles"></div>
@@ -83,7 +91,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
   <script>
      var selDiv = "";
 document.addEventListener("DOMContentLoaded", init, false);

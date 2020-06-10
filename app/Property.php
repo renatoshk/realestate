@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Property extends Model
 {
     // 
-     protected $fillable =['property_name','property_description', 'status'];
+     protected $fillable =['property_name','property_description', 'status','price', 'location'];
      
      public function user(){
      	return $this->belongsTo('App\User', 'user_id');

@@ -44,20 +44,24 @@
                     <th scope="col">Property Description</th>
                     <th scope="col">Property Status</th>
                     <th scope="col">Property Type</th>
-                    <th scope="col">Value</th>
-                    <th scope="col">Edit</th>
+                    <th scope="col">Property Price</th>
+                    <th scope="col">Property Location</th>
+                    <th scope="col">View</th>
+                    <th scope="col">Edit</th> 
                     <th scope="col">Delete</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody> 
                 @if($data)
-                 @foreach($data as $prop)
+                 @foreach($data as $prop) 
               <tr>
                   <td>{{$prop['property_name']}}</td>
                   <td>{{$prop['property_description']}}</td>
                   <td>{{$prop['status']}}</td>
                   <td>{{$prop['type']}}</td>
-                  <td></td>
+                  <td>{{$prop['price']}}</td>
+                  <td>{{$prop['location']}}</td>
+                  <td><a href="{{route('add.show',$prop['id'])}}">View Property</a></td> 
                   <td><a href="{{route('add.edit', $prop['id'])}}">Edit</a></td>
                   <td>
                   
@@ -67,7 +71,6 @@
                 </td>
               </tr>
                  @endforeach 
-                
                 @endif
                 </tbody>
               </table>

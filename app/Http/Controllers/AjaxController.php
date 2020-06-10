@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Attributes;
 use Illuminate\Support\Facades\Session;
-class AjaxController extends Controller {
+class AjaxController extends Controller {  
 
 	public function post(Request $request){
 		$attrId = (int) $request->attr_group_id;
@@ -23,4 +22,5 @@ class AjaxController extends Controller {
 		); 
 		return response()->json($response); 
    }
+
 }

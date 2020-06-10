@@ -98,8 +98,6 @@
                                             <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                         <li><a href="/about">about</a></li>
-                                                        <li><a href="/property_detail">property details</a></li>
-                                                        <li><a href="/elements">elements</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="/property">Property</a></li>

@@ -13,15 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::resource('/','ShowPropertiesController');
+Route::get('/property/{id}','ShowPropertiesController@show')->name('home');
+
 Route::get('/about', function () {
     return view('about');
 });
-Route::get('/property_detail', function () {
-    return view('property_details');
-});
+
 Route::get('/blog', function () {
     return view('blog');
 });
@@ -45,11 +43,8 @@ Route::group(['middleware'=>'admin'], function(){
    Route::resource('/adm/users', 'AdminUsersController');
 
 });
-// Route::get('/', function () {
-//     return view('search');
-// });
+
 Auth::routes(['verify'=>true]);
-Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/add', 'AddPropertyController');
 
 Route::get('ajax', function(){ 

@@ -96,14 +96,14 @@
 						$(data.content).insertAfter('#prop-files-uploader');
 					}
 				});
-
+ 
 				var prop_attr =  $('#attr_group_select').children('select').on('change', function(event){
 					if(prop_attr){
 						$('.prop_attr').remove();
 					}
 				});
 			});
-		});
+		}); 
 	</script>
 </body>
 </html>
