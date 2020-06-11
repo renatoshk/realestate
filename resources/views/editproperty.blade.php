@@ -48,7 +48,8 @@
                   {!!Form::label('property_type',$attributes_set, ['class'=>'form-control'])!!}
                  </div>
                   <div class="form-group">
-                   <select  class="form-control" name="status" id="status">
+                   <select value ="{{$property->status}}" class="form-control" name="status" id="status">
+                         <option value="Rent">{{$property->status}}</option>
                          <option value="Rent">Rent</option>
                          <option value="Sale">Sale</option>
                    </select>

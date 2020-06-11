@@ -57,7 +57,7 @@
                                 <li><a style="color: white;" href="{{route('login')}}">Login </a></li>
                                 <li><a style="color: white;" href="{{route('register')}}"> Register </a></li>
                         @else 
-                            <li style="color:white">Profile</li>
+                            <li style="color:white"><a style="color:white" href="{{route('profile.index')}}">Profile</a></li>
                             <li>
                                 <a style="color:white" href="{{route('logout')}}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">

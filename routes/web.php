@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/','ShowPropertiesController');
 Route::get('/property/{id}','ShowPropertiesController@show')->name('home');
+Route::resource('/profile','ProfileController');
+Route::resource('/changepassword','ChangePasswordController');
 
 Route::get('/about', function () {
     return view('about');

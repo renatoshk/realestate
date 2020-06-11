@@ -44,6 +44,9 @@ class AddPropertyController extends Controller
             // $prop_attr = Propertyattributes::where
             return view('show', compact('data'));
         }
+        else {
+            return redirect('/');
+        }
         
     }
 
@@ -177,18 +180,6 @@ class AddPropertyController extends Controller
         $user = Auth::user();
         $data = $request->all();
         if($user){
-
-            //edit photo
-             if($request->hasFile('photos')){
-                $files = $request->file('photos');
-                foreach ($files as $file){
-                    $filename = time().$file->getClientOriginalName();
-                    $file->move('photos', $filename);
-                    Property_images::where('property_id', $id)->update([
-                        'image'=>$filename
-                    ]);
-                }
-             }   
             //edit into properties table
         $property = $user->properties()->whereId($id)->first()->update($data);
         unset($data['_token']);
