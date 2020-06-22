@@ -41,7 +41,7 @@ class ShowPropertiesController extends Controller
             $data[] = $row; 
             $row = [];
          }
-         $attributes = Attributes_group::pluck('name', 'name')->all();
+         $attributes = Attributes_group::pluck('name', 'id')->all();
         return view('index', compact('data', 'attr_names', 'attributes','properties'));
     }
     

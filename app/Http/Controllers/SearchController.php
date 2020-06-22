@@ -25,26 +25,46 @@ class SearchController extends Controller
     { 
         //
         $data = $request->all();
-
         if($data){
             $prices = explode(' - ', $data['price-range']);
             $conditions = [];
-
+            $types = [];
             foreach ($data as $key => $value) {
                 if (!is_null($value)) {
-                    if ($key == 'price-range') {
+                //type
+                if($key == 'property_type') {
+                        $attrs = Propertyattributes::where('attribute_group_id', $value)->distinct()->get(['property_id']);
+                        foreach ($attrs as $attr) {
+                            $types[] = ['id','=', $attr->property_id];
+                        }
+
+                    }
+                  //price 
+                  elseif ($key == 'price-range') {
                         $conditions[] = ['price','>', (float) $prices[0]];
                         $conditions[] = ['price','<', (float) $prices[1]];
-                    }else{
+                    }
+                    else{
+
                         $conditions[] = [$key,'=', $value];
                     }
                 }
             }
-        $result = Property::where($conditions)->get();
-        return view('property', compact('result'));
+            if($types){
+                foreach ($types as $type) {
+                $result = Property::where($type[0], $type[1], $type[2])->orWhere($conditions)->paginate(6);
+                }
+            }
+
+            else {
+               $result = Property::where($conditions)->paginate(6);
+            }
+               return view('property', compact('result'));
+
+           
         }
         else {
-        return redirect()->back();
+             return redirect()->back();
 
         }
 

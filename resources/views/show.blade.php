@@ -61,7 +61,7 @@
                   <td>{{$prop['type']}}</td>
                   <td>{{$prop['price']}}</td>
                   <td>{{$prop['location']}}</td>
-                  <td><a href="{{route('home',$prop['id'])}}">View Property</a></td> 
+                  <td><a href="{{route('home',$prop['slug'])}}">View Property</a></td> 
                   <td><a href="{{route('add.edit', $prop['id'])}}">Edit</a></td>
                   <td>
                   

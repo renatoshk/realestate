@@ -30,7 +30,6 @@ class AddPropertyController extends Controller
         foreach ($properties as $property) {
             $attrs = $property->property_attributes;
             $groupName = Attributes_group::where('id', $attrs[0]['attribute_group_id'])->get();
-            // $attr_names = Attributes::where('attribute_id', $groupName[0]['id'])->get();
             $row['id'] = $property->id;
             $row['property_name'] = $property->property_name;
             $row['slug'] = $property->slug;

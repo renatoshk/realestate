@@ -38,7 +38,7 @@
                             <div class="property_tag">
                                     For {{$prop['status']}}
                             </div>
-                            <img src="/photos/{{$prop->photos[0]['image'] ?? ''}}" alt="">
+                            <img src="/photos/{{$prop->photos[0]['image'] ?? ''}}" width="400px;" height="400px;" alt="">
                         </div>
                         <div class="property_content">
                             <div class="main_pro">
@@ -58,7 +58,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="more_property_btn text-center">
-                        <a href="#" class="boxed-btn3-line">More Properties</a>
+                        {{$result->links()}}
                     </div>
                 </div>
             </div>
