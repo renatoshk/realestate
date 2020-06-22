@@ -17,6 +17,13 @@ class ChangePasswordController extends Controller
     public function index()
     {
         //
+        $user = Auth::user();
+        if($user){
+            return view('changepassword', compact('user'));
+        }
+        else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -49,6 +56,13 @@ class ChangePasswordController extends Controller
     public function show($id)
     {
         //
+        $user = Auth::user();
+        if($user){
+            return view('changepassword', compact('user'));
+        }
+        else {
+            return redirect('/');
+        }
     }
 
     /**
@@ -60,7 +74,7 @@ class ChangePasswordController extends Controller
     public function edit($id)
     {
         //
-        $user = User::findOrFail($id);
+        $user = Auth::user();
         if($user){
             return view('changepassword', compact('user'));
         }
@@ -80,9 +94,8 @@ class ChangePasswordController extends Controller
     {
         //
         $hashedPassword = Auth::user()->password;
-        // dd($hashedPassword);
         if(Hash::check($request->oldpassword, $hashedPassword)){
-            $user = User::findOrFail($id);
+            $user = Auth::user();
             $user->password = Hash::make($request->password);
             $user->save();
             Auth::logout();

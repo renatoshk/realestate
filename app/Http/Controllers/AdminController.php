@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use App\Property;
+use App\Wishlist;
+use App\User;
 class AdminController extends Controller
 {
     /**
@@ -14,8 +16,13 @@ class AdminController extends Controller
     public function index()
     {
         //
-        
-        return view('admin.dashboard');
+
+        $rent_props = Property::where('status', 'Rent')->get();
+        $sale_props = Property::where('status', 'Sale')->get();
+        $wish_clients = Wishlist::all();
+        $admins = User::where('role_id', 1)->get();
+        $users = User::where('role_id', 2)->get();
+        return view('admin.dashboard', compact('rent_props', 'sale_props', 'wish_clients', 'admins', 'users'));
     }
 
     /**

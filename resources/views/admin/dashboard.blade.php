@@ -13,7 +13,7 @@ body {
 .box {
     display: flex;
 }
-
+ 
 .box .inner {
     width: 400px;
     height: 200px;
@@ -94,28 +94,28 @@ body {
             <!-- small box -->
             <div class="small-box bg-green">
               <div class="inner">
-                <h3></h3>
-
-                <p>Products Available</p>
+                <h3>{{count($rent_props)}}</h3>
+                  
+                <p>Properties (Rent)</p>
               </div>
               <div class="icon">
-                <i class="ion ion-laptop"></i>
+               <i class="fa fa-home" aria-hidden="true"></i>
               </div>
-              <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{route('properties.index')}}" class="small-box-footer">More info <i class="fa fa-home" aria-hidden="true"></i></a>
             </div>
           </div>
              <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h3></h3>
+                <h3>{{count($sale_props)}}</h3>
 
-                <p>Products Unavailable</p>
+                <p>Properties(Sale)</p>
               </div>
               <div class="icon">
-                <i class="ion ion-iphone"></i>
+                <i class="fa fa-home" aria-hidden="true"></i>
               </div>
-              <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{route('properties.index')}}" class="small-box-footer">More info <i class="fa fa-home" aria-hidden="true"></i></a>
             </div>
           </div>
 
@@ -123,94 +123,49 @@ body {
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3></h3>
+                <h3>{{count($wish_clients)}}</h3>
 
-                <p>Cart Orders</p>
+                <p>Interested Clients</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="ion ion-person"></i>
               </div>
-              <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{route('wishlist.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-
-            <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-orange">
-              <div class="inner">
-                <h3></h3>
-
-                <p>Purchase Orders</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pricetag"></i>
-              </div>
-              <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3></h3>
+                <h3>{{count($admins)}}</h3>
 
-                <p>User Registrations</p>
+                <p>Admin</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{route('users.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-black">
               <div class="inner">
-                <h3></h3>
+                <h3>{{count($users)}}</h3>
 
-                <p>User Checkouts</p>
+                <p>Users</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person"></i>
               </div>
-              <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-             <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-white">
-              <div class="inner">
-                <h3></h3>
-
-                <p>Shippings</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-plane"></i>
-              </div>
-              <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-purple">
-              <div class="inner">
-                <h3></h3>
-
-                <p>Payments</p>
-              </div>
-              <div class="icon">
-                <i class="ion-social-usd"></i>
-              </div>
-              <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{route('users.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
-                <h3></h3>
+                <h3>22</h3>
 
                 <p>Posts</p>
               </div>
@@ -224,7 +179,7 @@ body {
             <!-- small box -->
             <div class="small-box bg-pink">
               <div class="inner">
-                <h3></h3>
+                <h3>22</h3>
 
                 <p>Comments</p>
               </div>
@@ -236,23 +191,9 @@ body {
           </div>
            <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3></h3>
-
-                <p>Product Categories</p>
-              </div>
-              <div class="icon">
-                <i class="ion-chatboxes"></i>
-              </div>
-              <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-           <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-secondary">
               <div class="inner">
-                <h3></h3>
+                <h3>5</h3>
 
                 <p>Posts Categories</p>
               </div>
@@ -295,18 +236,15 @@ body {
     var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
     var donutData        = {
       labels: [
-          'Products Available', 
-          'Cart Orders',
-          'Purchase Orders', 
-          'Users Register', 
-          'Users Checkout', 
-          'Shpping Customers', 
-          'Payments',
+          'Properties(Rent)', 
+          'Properties(Sale)', 
+          'Interested Clients',
+          'Users', 
       ],
       datasets: [
         {
-          data: [],
-          backgroundColor : ['black', 'yellow', 'white', 'purple', 'blue', 'pink','red'],
+          data: ['1', '10', '11', '22'],
+          backgroundColor : ['black', 'yellow', 'red',  'blue'],
         }
       ]
     }

@@ -1,9 +1,14 @@
 @extends('layouts.web.index')
-@section('content')
+@section('content') 
     <!-- header-end -->
 
          <!-- bradcam_area  -->
         <div class="property_details_banner">
+            @if ( Session::has('flash_message') )
+  <div class="alert {{ Session::get('flash_type', 'alert-success') }}">
+      <h3>{{ Session::get('flash_message') }}</h3>
+  </div>
+@endif
                 <div class="container"> 
                         <div class="row">
                             <div class="col-xl-6 col-md-8 col-lg-6">
@@ -17,7 +22,7 @@
                                           @foreach($attrs as $attr)
                                         <div class="single_quantity">
                                             <img src="{{asset('img/svg_icon/color_box.svg')}}" alt="">
-                                            <span>{{$attr->label}} {{App\Propertyattributes::where('property_id', $property->id)->where('attribute_id',$attr->id)->first()->attribute_value}}</span>
+                                            <span>{{$attr->label}} {{App\Propertyattributes::where('property_id', $property->id)->where('attribute_id',$attr->id)->first()->attribute_value ?? ''}}</span>
                                         </div>
                                           @endforeach
                                          @endif   
@@ -62,19 +67,20 @@
                     <div class="contact_field">
                         <h3>Are you Interesed for this Property?</h3>
                         <h3>Contact Us!</h3>
-                        <form action="#">
+                        {{Form::open(['method'=>'POST', 'action'=>'WishlistController@store'])}}
                                 <div class="row">
+                                     <input type="hidden" name="property_id" value="{{$property->id}}">
                                         <div class="col-xl-6 col-md-6">
-                                            <input type="text" placeholder="Your Name" >
+                                            <input type="text" placeholder="Your Name" name="name">
                                         </div>
                                         <div class="col-xl-6 col-md-6">
-                                            <input type="email" placeholder="Email" >
+                                            <input type="email" placeholder="Email" name="email">
                                         </div>
                                         <div class="col-xl-12">
-                                            <input type="number" placeholder="Phone no." >
+                                            <input type="number" placeholder="Phone no." name="phone_number">
                                         </div>
                                         <div class="col-xl-12">
-                                           <textarea name="" id="" cols="30" rows="10" placeholder="Message" ></textarea>
+                                           <textarea name="message" id="" cols="30" rows="10" placeholder="Message"></textarea>
                                         </div>
                                         <div class="col-xl-12">
                                             <div class="send_btn">
@@ -82,7 +88,7 @@
                                             </div>
                                         </div>
                                     </div>
-                        </form>
+                      {{Form::close()}}
                     </div>
                 </div>
             </div>

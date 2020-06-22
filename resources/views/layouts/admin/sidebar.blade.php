@@ -65,7 +65,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{route('properties.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Properties</p>
                             </a>
@@ -84,7 +84,15 @@
                         <li class="nav-item">
                             <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Users</p>
+                                <p>Property's Owner</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('wishlist.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Interested Clients</p>
                             </a>
                         </li>
                     </ul>

@@ -1723,7 +1723,7 @@ h3 {
 
 /* line 220, ../../Arafath/CL/CL October/217. Real Estate/HTML/scss/_slider.scss */
 .slider_area .single-field.min_width .nice-select.wide {
-  width: 110px;
+  width: 120px;
   background: transparent;
   color: #C7C7C7;
   font-size: 15px;
@@ -3230,7 +3230,7 @@ h3 {
   font-weight: normal;
   font-family: Verdana,Arial,sans-serif;
   font-size: 14px;
-  color: #333;
+  color: white;
 }
 
 /* line 31, ../../Arafath/CL/CL October/217. Real Estate/HTML/scss/_prise_slider.scss */

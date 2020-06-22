@@ -17,6 +17,8 @@ Route::resource('/','ShowPropertiesController');
 Route::get('/property/{id}','ShowPropertiesController@show')->name('home');
 Route::resource('/profile','ProfileController');
 Route::resource('/changepassword','ChangePasswordController');
+Route::resource('/property','SearchController');
+Route::resource('/wishlist','WishlistController');
 
 Route::get('/about', function () {
     return view('about');
@@ -28,12 +30,6 @@ Route::get('/blog', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
-Route::get('/elements', function () {
-    return view('elements');
-});
-Route::get('/property', function () {
-    return view('property');
-});
 Route::get('/single_blog', function () {
     return view('single-blog');
 });
@@ -43,6 +39,7 @@ Route::group(['middleware'=>'admin'], function(){
    Route::resource('/adm/attribute_set', 'AdminAttributeSetController');
    Route::resource('/adm/attribute', 'AdminAttributeController');
    Route::resource('/adm/users', 'AdminUsersController');
+   Route::resource('/adm/properties', 'AdminPropertiesController');
 
 });
 

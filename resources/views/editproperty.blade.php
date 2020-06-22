@@ -79,7 +79,7 @@
                     <div class="form-group">
                       <label for="{{$attr->label}}">{{$attr->label}}</label>
                       <input type="hidden" name="id_'{{$attr->attr_code}}" value="{{$attr->id}}">
-                      <input type="{{$attr->type}}" name="{{$attr->attr_code}}" value="{{App\Propertyattributes::where('attribute_id', $attr->id)->first()->attribute_value}}" class="form-control">
+                      <input type="{{$attr->type}}" name="{{$attr->attr_code}}" value="{{App\Propertyattributes::where('property_id', $property->id)->where('attribute_id', $attr->id)->first()->attribute_value ?? 'no data'}}" class="form-control">
                     </div>
                   @endforeach
                  @endif

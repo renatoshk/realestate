@@ -5,67 +5,51 @@
         <div class="single_slider  d-flex align-items-center slider_bg_1">
         <div class="container">
         <div class="row align-items-center">
-            <div class="col-xl-10 offset-xl-1">
+            <div class="col-xl-11 offset-xl-1">
                 <div class="slider_text text-center justify-content-center">
                     <h3>Find your best Property</h3>
-                    <p>Esteem spirit temper too say adieus who direct esteem.</p>
+                    <p>“If you don't own a home, buy one"</p>
                 </div>
                 <div class="property_form">
-                    <form action="#">
+                    {!!Form::open(['method'=>'GET', 'action'=>'SearchController@index']) !!}
                         <div class="row">
-                            <div class="col-xl-12">
+                            <div class="col-xl-20">
                                 <div class="form_wrap d-flex">
-                                        <div class="single-field max_width ">
-                                                <label for="#">Location</label>
-                                                <select class="wide" >
-                                                        <option data-display="NewYork">NewYork</option>
-                                                        <option value="1">Bangladesh</option>
-                                                        <option value="2">India</option>
-                                                </select>
-                                            </div>
-                                        <div class="single-field max_width ">
-                                                <label for="#">Property type</label>
-                                                <select class="wide" >
-                                                        <option data-display="Apartment">Apartment</option>
-                                                        <option value="1">Apartment</option>
-                                                        <option value="2">Apartment</option>
-                                                </select>
-                                            </div>
-                                            <div class="single_field range_slider">
-                                                    <label for="#">Price ($)</label>
-                                                <div id="slider"></div>
-                                            </div>
-                                        <div class="single-field min_width ">
-                                                <label for="#">Bed Room</label>
-                                                <select class="wide" >
-                                                        <option data-display="01">01</option>
-                                                        <option value="1">02</option>
-                                                        <option value="2">03</option>
-                                                </select>
-                                            </div>
-                                        <div class="single-field min_width ">
-                                        <label for="#">Bath Room</label>
-                                        <select class="wide" >
-                                                <option data-display="01">01</option>
-                                                <option value="1">02</option>
-                                                <option value="2">03</option>
-                                        </select>
+                                    <div class="single-field max_width ">
+                                        <label for="property_type">Property type</label>
+                                        {{Form::select('property_type', [''=>'Choose Type']+$attributes, NULL, ['class'=>'wide'])}}
                                     </div>
-                                    <div class="serach_icon">
-                                        <a href="#">
-                                            <i class="ti-search"></i>
+                                      <div class="single-field max_width ">
+                                            <label for="#">Price($)</label>
+                                            <div id="slider"></div> 
+                                            <input type="hidden" name="price-range" id="p-range" value="">
+                                    </div>
+                                    <div class="single-field max_width ">
+                                            <label for="#">Location</label>
+                                            <input type="text" id="location" name="location" class="form_wrap form-control">
+                                    </div>
+                                    <div class="single-field min_width ">
+                                            <label for="#">Status</label>
+                                           <select name="status" class="wide">
+                                                    <option value="">Choose</option>
+                                                    <option value="Rent">Rent</option>
+                                                    <option value="Sale">Sale</option>
+                                            </select>
+                                        </div>
+                                     <div class="serach_icon">
+                                            <input type="submit" value="search" class="form-control form_wrap">
                                         </a>
-                                    </div>
+                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    {{Form::close()}}
                 </div>
             </div>
         </div>
-        </div>
-        </div>
-        </div>
+      </div>
+    </div>
+</div>
     <!-- slider_area_end -->
 
     <!-- popular_property  -->
@@ -91,7 +75,7 @@
                         </div>
                         <div class="property_content">
                             <div class="main_pro">
-                                    <h3><a href="{{route('home', $prop['id'])}}">{{$prop['property_name']}}</a></h3>
+                                    <h3><a href="{{route('home', $prop['slug'])}}">{{$prop['property_name']}}</a></h3>
                                     <div class="mark_pro">
                                         <img src="img/svg_icon/location.svg" alt="">
                                         <span>{{$prop['type']}}</span>
@@ -104,7 +88,7 @@
                                     <li>
                                         <div class="single_info_doc">
                                             <img src="img/svg_icon/square.svg" alt="">
-                                            <span><a href="{{route('home', $prop['id'])}}">Click here for Details!</a></span>
+                                            <span><a href="{{route('home', $prop['slug'])}}">Click here for Details!</a></span>
                                         </div>
                                     </li>
                                 </ul>
@@ -116,9 +100,9 @@
             </div>
             <div class="row">
                 <div class="col-xl-12">
-                    <div class="more_property_btn text-center">
-                        <a href="#" class="boxed-btn3-line">More Properties</a>
-                    </div>
+                        @if($properties)
+                           {{$properties->links()}}
+                        @endif
                 </div>
             </div>
         </div>
@@ -153,7 +137,7 @@
                                                         <p>{{$prop['property_description']}}</p>
                                                         <div class="prise_view_details d-flex justify-content-between align-items-center">
                                                             <span>${{$prop['price']}}</span>
-                                                            <a class="boxed-btn3-line" href="{{route('home', $prop['id'])}}">View Details</a>
+                                                            <a class="boxed-btn3-line" href="{{route('home', $prop['slug'])}}">View Details</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -183,12 +167,14 @@
                                                     <div class="card-header" id="headingTwo">
                                                         <h5 class="mb-0">
                                                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                                    Adieus who direct esteem <span>It esteems luckily?</span>
+                                                                    How long does it take to buy a home?</span>
                                                             </button>
                                                         </h5>
                                                     </div>
                                                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who direct esteem esteems luckily or picture placing drawing.
+                                                        <div class="card-body">From start (searching online) to finish (closing escrow), buying a home takes about 10 to 12 weeks. Once a home is selected an the offer is accepted, the average time to complete the escrow period on a home is 30 to 45 days (under normal market conditions). Though, well-prepared home buyers who pay cash have been known to purchase properties faster than that.
+
+                                                        Market conditions are a major factor in how fast homes are sold. In hot markets with a lot of sales activity, buying a home may take a little longer than normal. That’s because several parties involved in the transaction get behind when business suddenly picks up. For example, a spike in home sales increases the demand for property appraisals and home inspections, yet there will be no increase in the number of appraisers and inspectors available to do the work. Lender turn-around times for loan underwriting can also slow down. If each party involved in a deal takes a day or two longer to get their work done, the entire process gets extended.
                                                         </div>
                                                     </div>
                                                 </div>
@@ -196,12 +182,12 @@
                                                     <div class="card-header" id="headingOne">
                                                         <h5 class="mb-0">
                                                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                                    Who direct esteem It esteems?
+                                                                    What kind of credit score do I need to buy a home?
                                                             </button>
                                                         </h5>
                                                     </div>
                                                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who direct esteem esteems luckily or picture placing drawing.
+                                                        <div class="card-body">Most loan programs require a FICO score of 620 or better. Borrowers with higher credit scores represent less risk to the lender, often resulting in a lower the down payment requirement and better interest rate. Conversely, home shoppers with lower credit scores may need to bring more money to the table (or accept a higher interest rate) to offset the lender’s risk.
                                                         </div>
                                                     </div>
                                                 </div>
@@ -209,12 +195,12 @@
                                                     <div class="card-header" id="headingThree">
                                                         <h5 class="mb-0">
                                                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                                    Duis consectetur feugiat auctor?
+                                                                    How long can the seller take to respond to my offer?
                                                             </button>
                                                         </h5>
                                                     </div>
                                                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who direct esteem esteems luckily or picture placing drawing.
+                                                        <div class="card-body">Written offers should stipulate the timeframe in which the seller should respond. Giving them twenty-four hours should be sufficient.
                                                         </div>
                                                     </div>
                                                 </div>
@@ -269,48 +255,9 @@
                                         <div class="quote">
                                             <img src="img/svg_icon/quote.svg" alt="">
                                         </div>
-                                        <p>Donec imperdiet congue orci consequat mattis. Donec rutrum porttitor <br> 
-                                                sollicitudin. Pellentesque id dolor tempor sapien feugiat ultrices nec sed neque.  <br>
-                                                Fusce ac mattis nulla. Morbi eget ornare dui. </p>
+                                        <p>NEVER GIVE UP FROM YOUR DREAM! </p>
                                         <div class="testmonial_author">
-                                            <div class="thumb">
-                                                    <img src="img/case/testmonial.png" alt="">
-                                            </div>
-                                            <h3>Robert Thomson</h3>
-                                            <span>Business Owner</span>
-                                        </div>
-                                    </div>
-                        </div>
-                        <div class="single_carousel">
-                                <div class="single_testmonial text-center">
-                                        <div class="quote">
-                                            <img src="img/svg_icon/quote.svg" alt="">
-                                        </div>
-                                        <p>Donec imperdiet congue orci consequat mattis. Donec rutrum porttitor <br> 
-                                                sollicitudin. Pellentesque id dolor tempor sapien feugiat ultrices nec sed neque.  <br>
-                                                Fusce ac mattis nulla. Morbi eget ornare dui. </p>
-                                        <div class="testmonial_author">
-                                            <div class="thumb">
-                                                    <img src="img/case/testmonial.png" alt="">
-                                            </div>
-                                            <h3>Robert Thomson</h3>
-                                            <span>Business Owner</span>
-                                        </div>
-                                    </div>
-                        </div>
-                        <div class="single_carousel">
-                                <div class="single_testmonial text-center">
-                                        <div class="quote">
-                                            <img src="img/svg_icon/quote.svg" alt="">
-                                        </div>
-                                        <p>Donec imperdiet congue orci consequat mattis. Donec rutrum porttitor <br> 
-                                                sollicitudin. Pellentesque id dolor tempor sapien feugiat ultrices nec sed neque.  <br>
-                                                Fusce ac mattis nulla. Morbi eget ornare dui. </p>
-                                        <div class="testmonial_author">
-                                            <div class="thumb">
-                                                    <img src="img/case/testmonial.png" alt="">
-                                            </div>
-                                            <h3>Robert Thomson</h3>
+                                            <h3>Renato Shkulaku</h3>
                                             <span>Business Owner</span>
                                         </div>
                                     </div>

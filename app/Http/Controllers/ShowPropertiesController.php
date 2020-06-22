@@ -21,9 +21,9 @@ class ShowPropertiesController extends Controller
     public function index()
     {
         //
-        $properties = Property::all();
+        $properties = Property::orderBy('created_at')->paginate(6);
         $row = [];
-        $data = []; 
+        $data = [];  
          foreach ($properties as $property) {
             $attrs = $property->property_attributes;
             $groupName = Attributes_group::where('id', $attrs[0]['attribute_group_id'])->get();
@@ -31,6 +31,7 @@ class ShowPropertiesController extends Controller
 
             $row['id'] = $property->id;
             $row['property_name'] = $property->property_name;
+            $row['slug'] = $property->slug;
             $row['property_description'] = $property->property_description;
             $row['status'] = $property->status;
             $row['type'] = $groupName[0]['name'];
@@ -40,7 +41,8 @@ class ShowPropertiesController extends Controller
             $data[] = $row; 
             $row = [];
          }
-        return view('index', compact('data', 'attr_names'));
+         $attributes = Attributes_group::pluck('name', 'name')->all();
+        return view('index', compact('data', 'attr_names', 'attributes','properties'));
     }
     
 
@@ -71,14 +73,14 @@ class ShowPropertiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         //
-        $property = Property::findOrFail($id);
+        $property = Property::findBySlugOrFail($slug);
         $prop_attr = $property->property_attributes;
         $attr_set = Attributes_group::where('id',  $prop_attr[0]['attribute_group_id'])->get();
         $attrs = Attributes::where('attribute_id',$prop_attr[0]['attribute_group_id'])->get();
-        $photos = $property->photos;
+        $photos = $property->photos; 
         return view('property_details', compact('property', 'attr_set', 'photos', 'attrs'));
     }
 

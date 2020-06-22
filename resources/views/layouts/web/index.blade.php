@@ -53,7 +53,7 @@
                                                 <li><a href="#"> <i class="fa fa-phone"></i>+3559812168</a></li>
                                             </ul>
                                         </div>
-                 @if(Auth::guest())
+                       @if(Auth::guest())
                                 <li><a style="color: white;" href="{{route('login')}}">Login </a></li>
                                 <li><a style="color: white;" href="{{route('register')}}"> Register </a></li>
                         @else 
@@ -68,7 +68,7 @@
                         @csrf
                     </form>
              @endif
-            @if(Auth::check()) 
+            @if(Auth::check())   
              @if(Auth::user()->role_id == 1)
                <li><a style="color: white;" href="/adm">Admin</a></li>
               @endif
@@ -100,7 +100,6 @@
                                                         <li><a href="/about">about</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="/property">Property</a></li>
                                             <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="/blog">blog</a></li>
@@ -144,9 +143,9 @@
                                 </a>
                             </div>
                             <p>
-                                    <a href="#">conbusi@support.com</a> <br>
-                                    +10 873 672 6782 <br>
-                                    600/D, Green road, NewYork
+                                    <a href="#">realestatealbania@support.com</a> <br>
+                                    +355699812168 <br>
+                                    Tirana/Albania
                             </p>
                             <div class="socail_links">
                                 <ul>
@@ -284,18 +283,20 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         // // slider call
         $('#slider').slider({
             range: true,
-            min: 20,
-            max: 200,
+            min: 1000,
+            max: 1000000,
             step: 1,
-            values: [getQueryString('minval') ? getQueryString('minval') : 20, getQueryString('maxval') ?
-                getQueryString('maxval') :200
+            values: [getQueryString('minval') ? getQueryString('minval') : 1000, getQueryString('maxval') ?
+                getQueryString('maxval') :1000000
             ],
 
             slide: function (event, ui) {
 
-                $('.ui-slider-handle:eq(0) .price-range-min').html( ui.values[0] + 'K');
-                $('.ui-slider-handle:eq(1) .price-range-max').html( ui.values[1] + 'K');
-                $('.price-range-both').html('<i>K' + ui.values[0] + ' - </i>K' + ui.values[1]);
+                $('.ui-slider-handle:eq(0) .price-range-min').html( ui.values[0]);
+                $('.ui-slider-handle:eq(1) .price-range-max').html( ui.values[1]);
+                $('.price-range-both').html('<i>' + ui.values[0] + ' - </i>' + ui.values[1]);
+
+                $('#p-range').val(ui.values[0] + ' - ' + ui.values[1]);
 
                 // get values of min and max
                 $("#minval").val(ui.values[0]);
@@ -321,11 +322,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         $('.ui-slider-range').append('<span class="price-range-both value"><i>' + $('#slider').slider('values', 0) +
             ' - </i>' + $('#slider').slider('values', 1) + '</span>');
 
+        $('.ui-slider-range').append('<input type="hidden" name="price-range" value="' + $('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1) + '>');
+
         $('.ui-slider-handle:eq(0)').append('<span class="price-range-min value">' + $('#slider').slider('values', 0) +
-            'k</span>');
+            '</span>');
 
         $('.ui-slider-handle:eq(1)').append('<span class="price-range-max value">' + $('#slider').slider('values', 1) +
-            'k</span>');
+            '</span>');
     </script>
 
 </body>

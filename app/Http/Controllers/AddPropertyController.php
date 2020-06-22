@@ -6,14 +6,15 @@ use App\Attributes_group;
 use Illuminate\Support\Facades\Session;
 use App\Property_images;
 use App\Propertyattributes;
-// deprecated
+// deprecated 
 use App\Attributes;
 use App\Property;
 use App\Http\Requests\AddRequest;
 use App\Http\Requests\EditPropertyRequest;
+
 class AddPropertyController extends Controller
 {
-    /**
+    /** 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -32,6 +33,7 @@ class AddPropertyController extends Controller
             // $attr_names = Attributes::where('attribute_id', $groupName[0]['id'])->get();
             $row['id'] = $property->id;
             $row['property_name'] = $property->property_name;
+            $row['slug'] = $property->slug;
             $row['property_description'] = $property->property_description;
             $row['status'] = $property->status;
             $row['type'] = $groupName[0]['name'];
@@ -41,7 +43,6 @@ class AddPropertyController extends Controller
             $row = [];
         }  
             //shfaqja e attributeve perkatese ne frontend 
-            // $prop_attr = Propertyattributes::where
             return view('show', compact('data'));
         }
         else {
@@ -157,14 +158,32 @@ class AddPropertyController extends Controller
      */
     public function edit($id)
     {
-        // 
-        $property = Property::findOrFail($id);
-        $attrs_prop = $property->property_attributes;
-        $attributes_set = Attributes_group::where('id', $attrs_prop[0]['attribute_group_id'])->first()->name;
-        $attrs = Attributes::where('attribute_id',$attrs_prop[0]['attribute_group_id'])->get();
-       
-        $photos = $property->photos;
+        //  
+        $user = Auth::user();
+       if($user){
+ 
+        if($user->role_id == 1){
+            $property = Property::findOrFail($id);
+            $attrs_prop = $property->property_attributes;
+            $attributes_set = Attributes_group::where('id', $attrs_prop[0]['attribute_group_id'])->first()->name;
+            $attrs = Attributes::where('attribute_id',$attrs_prop[0]['attribute_group_id'])->get();
+           
+            $photos = $property->photos;
         return view('editproperty', compact('property', 'attributes_set', 'attrs', 'photos'));
+        }
+        else {
+            $property = Property::where('user_id', $user->id)->findOrFail($id);
+            $attrs_prop = $property->property_attributes;
+            $attributes_set = Attributes_group::where('id', $attrs_prop[0]['attribute_group_id'])->first()->name;
+            $attrs = Attributes::where('attribute_id',$attrs_prop[0]['attribute_group_id'])->get();
+           
+            $photos = $property->photos;
+            return view('editproperty', compact('property', 'attributes_set', 'attrs', 'photos'));  
+        }
+       } 
+       else {
+        return redirect()->back();
+       }
     }
  
     /**
@@ -197,9 +216,8 @@ class AddPropertyController extends Controller
              if ($i % 2 == 0) {
                 $attrId = $value;
             }else{
-                Propertyattributes::where('property_id', $id)->where('attribute_id', $attrId)->update([
-                    'attribute_value'   =>  $value
-                ]);
+
+                 Propertyattributes::where('property_id', $id)->where('attribute_id', $attrId)->update(['attribute_value' => $value]);
             }
              $i++;
         }
