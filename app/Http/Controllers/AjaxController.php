@@ -18,7 +18,7 @@ class AjaxController extends Controller {
        	}
 		$response = array(
 			'status' => 'success',
-			'content' => $html 
+			'content' => $html  
 		); 
 		return response()->json($response); 
    }

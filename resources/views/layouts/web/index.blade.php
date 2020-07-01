@@ -58,7 +58,7 @@
                                 <li><a style="color: white;" href="{{route('register')}}"> Register </a></li>
                         @else 
                             <li style="color:white"><a style="color:white" href="{{route('profile.index')}}">Profile</a></li>
-                            <li>
+                           <li>
                                 <a style="color:white" href="{{route('logout')}}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                                     {{ __('Logout')}}
@@ -98,12 +98,6 @@
                                             <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                         <li><a href="/about">about</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="/blog">blog</a></li>
-                                                    <li><a href="/single_blog">single-blog</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="/contact">Contact</a></li>

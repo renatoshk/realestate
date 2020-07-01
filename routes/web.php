@@ -1,4 +1,4 @@
-<?php
+ <?php
  
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('/','ShowPropertiesController');
-Route::get('/property/{id}','ShowPropertiesController@show')->name('home');
+Route::get('/property/{id}','ShowPropertiesController@show')->name('home'); 
 Route::resource('/profile','ProfileController');
 Route::resource('/changepassword','ChangePasswordController');
 Route::resource('/property','SearchController');
@@ -24,16 +24,9 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/blog', function () {
-    return view('blog');
-});
 Route::get('/contact', function () {
     return view('contact');
 });
-Route::get('/single_blog', function () {
-    return view('single-blog');
-});
-
 Route::group(['middleware'=>'admin'], function(){
    Route::get('/adm', 'AdminController@index');
    Route::resource('/adm/attribute_set', 'AdminAttributeSetController');
